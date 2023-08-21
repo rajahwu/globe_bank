@@ -1,6 +1,6 @@
 <?php 
-define("DB_SERVER", "172.23.207.28" );
-define("DB_USER", "globebank" );
+define("DB_SERVER", "localhost" );
+define("DB_USER", "root" );
 define("DB_PASS", "Eric@123" );
 define("DB_NAME", "globe_bank" );
 
