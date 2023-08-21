@@ -1,12 +1,9 @@
 <?php include_once('../../../private/initialize.php'); ?>
 
 <?php
-$pages = [
-    ['id' => '1', 'position' => '1', 'visible' => '1', 'menu_name' => 'About Globe Bank'],
-    ['id' => '2', 'position' => '2', 'visible' => '1', 'menu_name' => 'History'],
-    ['id' => '3', 'position' => '3', 'visible' => '1', 'menu_name' => 'Leadership'],
-    ['id' => '4', 'position' => '4', 'visible' => '1', 'menu_name' => 'Contact Us'],
-];
+
+$pages_set = find_all_pages();
+
 ?>
 
 <?php $page_title = "Pages"; ?>
@@ -31,7 +28,7 @@ $pages = [
                 <th>&nbsp;</th>
             </tr>
 
-            <?php foreach($pages as $page) { ?>
+            <?php while($page = mysqli_fetch_assoc($pages_set)) { ?>
                 <tr>
                     <td>
                         <?php echo h($page['id']); ?>
@@ -53,6 +50,9 @@ $pages = [
             <?php } ?>
         </table>
 
+<?php
+    mysqli_free_result($pages_set_set);
+?>
     </div>
 </div>
 

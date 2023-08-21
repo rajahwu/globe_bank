@@ -1,9 +1,7 @@
 <?php require_once('../../../private/initialize.php'); ?>
 
 <?php
-  echo "index.php";
   $subject_set = find_all_subjects();
-  // echo  mysqli_fetch_assoc($subject_set) ?? '<br />' . 'empty';
 ?>
 
 <?php $page_title = 'Subjects'; ?>
