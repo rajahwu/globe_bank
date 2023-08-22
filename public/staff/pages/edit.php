@@ -20,8 +20,9 @@ if (is_post_request()) {
   $page['position'] = $_POST["position"];
   $page['visible'] = $_POST["visible"];
   $page['subject_id'] = $_POST["subject_id"];
+  $page['content'] = $_POST["content"] ?? $page['content'];
 
-  $results = insert_page($page);
+  $results = update_page($page);
   redirect_to(url_for("/staff/pages/show.php?id=" . $id));
 }
 
@@ -57,6 +58,7 @@ if (is_post_request()) {
               }
               ?>
             </select>
+            <?php mysqli_free_result($subject_set) ?>
           </dd>
         </dl>
         <dl>
@@ -83,6 +85,12 @@ if (is_post_request()) {
             echo " checked";
           } ?> />
         </dd>
+      </dl>
+      <dl>
+        <dt>Content</dt>
+          <dd>
+            <textarea name="content" cols="30" rows="10"><?php echo $page['content'] ?></textarea>
+          </dd>
       </dl>
       <div id="operations">
         <input type="submit" value="Edit Page" />

@@ -17,6 +17,7 @@ if (is_post_request()) {
   $page['menu_name'] = $_POST["menu_name"];
   $page['visible'] = $_POST["visible"];
   $page['subject_id'] = $_POST["subject_id"];
+  $page['content'] = $_POST["content"];
 
   $result = insert_page($page);
   $new_id = mysqli_insert_id($db);
@@ -77,6 +78,13 @@ if (is_post_request()) {
             echo " checked";
           } ?> />
         </dd>
+      </dl>
+      <dl>
+        <dt>Content</dt>
+          <dd>
+            <textarea name="content" cols="30" rows="10"</textarea>
+          </textarea>
+          </dd>
       </dl>
       <div id="operations">
         <input type="submit" value="Create Page" />

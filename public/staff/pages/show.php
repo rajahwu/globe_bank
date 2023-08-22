@@ -6,8 +6,9 @@
 $id = $_GET['id'] ?? 1;
 
 $page = find_page_by_id($id);
+$subject = find_subject_by_id($page['subject_id']);
 
-if(!$page) {
+if (!$page) {
     echo "no page";
 }
 
@@ -37,6 +38,12 @@ $page_title = "Show Page";
                 </dd>
             </dl>
             <dl>
+                <dt>Subject</dt>
+                <dd>
+                    <?php echo h($subject['menu_name']); ?>
+                </dd>
+            </dl>
+            <dl>
                 <dt>Position</dt>
                 <dd>
                     <?php echo h($page['position']); ?>
@@ -46,6 +53,17 @@ $page_title = "Show Page";
                 <dt>Visible</dt>
                 <dd>
                     <?php echo h($page['visible']); ?>
+                </dd>
+            </dl>
+            <dl>
+                <dt>Content</dt>
+                <dd>
+                    <?php if (isset($page['content'])) {
+                        echo "<p>" . $page['content'] . "</p>";
+                    } else {
+                        echo "no content";
+                    }
+                    ?>
                 </dd>
             </dl>
         </div>

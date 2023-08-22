@@ -90,6 +90,7 @@ function update_subject($subject)
   }
   
 }
+
 function find_all_pages()
 {
   global $db;
@@ -120,12 +121,13 @@ function insert_page($page)
   
   
   $sql = "INSERT INTO pages ";
-  $sql .= "(menu_name, position, visible, subject_id) ";
+  $sql .= "(menu_name, position, visible, subject_id, content) ";
   $sql .= "VALUES (";
   $sql .= "'" . $page['menu_name'] . "',";
   $sql .= "'" . $page['position'] . "',";
   $sql .= "'" . $page['visible'] . "',";
-  $sql .= "'" . $page['subject_id'] . "'";
+  $sql .= "'" . $page['subject_id'] . "',";
+  $sql .= "'" . $page['content'] . "'";
   $sql .= ")";
 
   $result = mysqli_query($db, $sql);
@@ -141,6 +143,34 @@ function insert_page($page)
 
   
 }
+
+
+function update_page($page)
+{
+  global $db;
+  
+  $sql = "UPDATE pages SET ";
+  $sql .= "menu_name='" . $page['menu_name'] . "',";
+  $sql .= "position='" . $page['position'] . "',";
+  $sql .= "subject_id='" . $page['subject_id'] . "',";
+  $sql .= "visible='" . $page['visible'] . "', ";
+  $sql .= "content='" . $page['content'] . "' ";
+  $sql .= "WHERE id='" . $page['id'] . "' ";
+  $sql .= "LIMIT 1";
+
+  $result = mysqli_query($db, $sql);
+
+  if ($result) {
+    return true;
+  } else {
+
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+  }
+  
+}
+
 
 function delete_page($id)
 {
