@@ -2,15 +2,6 @@
 
 require_once('../../../private/initialize.php');
 
-$page_set = find_all_pages();
-$pages_count = mysqli_num_rows($page_set) + 1;
-mysqli_free_result($page_set);
-$subject_set = find_all_subjects();
-
-$page = [];
-$page['position'] = $pages_count;
-$page['menu_name'] = '';
-$page['visible'] = '';
 
 if (is_post_request()) {
   $page['position'] = $_POST["position"];
@@ -23,6 +14,19 @@ if (is_post_request()) {
   $new_id = mysqli_insert_id($db);
   redirect_to(url_for('/staff/pages/show.php?id=' . $new_id));
  
+} else {
+  $subject_set = find_all_subjects();
+  
+  $page = [];
+  $page['menu_name'] = '';
+  $page['visible'] = '';
+  $page['subject_id'] = '';
+  $page['content'] = '';
+  
+    $page_set = find_all_pages();
+    $pages_count = mysqli_num_rows($page_set) + 1;
+    mysqli_free_result($page_set);
+    $page['position'] = $pages_count;
 }
 
 ?>
@@ -49,7 +53,11 @@ if (is_post_request()) {
             <select name="subject_id">
               <?php 
               while($subject = $subjects = mysqli_fetch_assoc($subject_set)) {
-                echo "<option value=" . $subject['id'] . ">". $subject['menu_name'] . "</option>";
+                echo "<option value=\"" . h($subject['id']) . "\"";
+                if($page["subject_id"] == $subject['id']) {
+                  echo " selected";
+                }
+                echo ">". h($subject['menu_name']) . "</option>";
               }
               ?>
             </select>

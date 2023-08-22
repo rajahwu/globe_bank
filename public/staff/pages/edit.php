@@ -8,22 +8,27 @@ if (!isset($_GET['id'])) {
 }
 $id = $_GET['id'];
 
-$page = find_page_by_id($id);
-$subject_set = find_all_subjects();
-$page_set = find_all_pages();
-$pages_count = mysqli_num_rows($page_set) + 1;
-
 
 
 if (is_post_request()) {
-  $page['menu_name'] = $_POST["menu_name"];
-  $page['position'] = $_POST["position"];
-  $page['visible'] = $_POST["visible"];
-  $page['subject_id'] = $_POST["subject_id"];
-  $page['content'] = $_POST["content"] ?? $page['content'];
-
+  $page = [];
+  $page['id'] = $id;
+  $page['menu_name'] = $_POST["menu_name"] ?? '';
+  $page['position'] = $_POST["position"] ?? '';
+  $page['visible'] = $_POST["visible"] ?? '';
+  $page['subject_id'] = $_POST["subject_id"] ?? '';
+  $page['content'] = $_POST["content"] ?? '';
+  
   $results = update_page($page);
   redirect_to(url_for("/staff/pages/show.php?id=" . $id));
+} else {
+  
+  $page = find_page_by_id($id);
+  $subject_set = find_all_subjects();
+  $page_set = find_all_pages();
+  $pages_count = mysqli_num_rows($page_set) + 1;
+  mysqli_free_result($page_set);
+  
 }
 
 ?>
@@ -47,18 +52,17 @@ if (is_post_request()) {
           <dt>Subject</dt>
           <dd>
             <select name="subject_id">
-              <?php 
+            <?php 
               while($subject = $subjects = mysqli_fetch_assoc($subject_set)) {
-                echo "<option value=" . $subject['id']; 
-
-                if($subject['id'] == $page['subject_id']) {
+                echo "<option value=\"" . h($subject['id']) . "\"";
+                if($page["subject_id"] == $subject['id']) {
                   echo " selected";
                 }
-                echo ">". $subject['menu_name'] ."</option>";
+                echo ">". h($subject['menu_name']) . "</option>";
               }
+              mysqli_free_result($subject_set)
               ?>
             </select>
-            <?php mysqli_free_result($subject_set) ?>
           </dd>
         </dl>
         <dl>

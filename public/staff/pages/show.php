@@ -59,7 +59,7 @@ $page_title = "Show Page";
                 <dt>Content</dt>
                 <dd>
                     <?php if (isset($page['content'])) {
-                        echo "<p>" . $page['content'] . "</p>";
+                        echo "<p>" . h($page['content']) . "</p>";
                     } else {
                         echo "no content";
                     }

@@ -144,7 +144,6 @@ function insert_page($page)
   
 }
 
-
 function update_page($page)
 {
   global $db;
@@ -181,7 +180,6 @@ function delete_page($id)
   $sql .= "WHERE id='" . $id . "' ";
   $sql .= "LIMIT 1";
 
-  echo $sql;
   $result = mysqli_query($db, $sql);
   
   if ($result) {
