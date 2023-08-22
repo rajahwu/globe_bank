@@ -33,6 +33,31 @@ function find_subject_by_id($id)
     mysqli_free_result($result);
     return $subject;
 }
+function insert_subject($menu_name, $position, $visible) {
+    global $db;
+
+    
+    $sql = "INSERT INTO subjects ";
+    $sql .= "(menu_name, position, visible) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . $menu_name . "',";
+    $sql .= "'" . $position . "',";
+    $sql .= "'" . $visible . "'";
+    $sql .= ")";
+
+    $result = mysqli_query($db, $sql);
+
+
+    if ($result) {
+      return true;
+    } else {
+        echo mysqli_error($db);
+        db_disconnect(($db));
+        exit;
+    }
+
+
+}
 
 function find_page_by_id($id) {
     global $db;
@@ -45,5 +70,6 @@ function find_page_by_id($id) {
     return $page;
     
 }
+
 
 ?>
