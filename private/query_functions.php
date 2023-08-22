@@ -47,7 +47,6 @@ function insert_subject($subject)
   
 }
 
-
 function delete_subject($id)
 {
   

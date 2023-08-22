@@ -30,12 +30,13 @@ $pages_set = find_all_pages();
             </tr>
 
             <?php while($page = mysqli_fetch_assoc($pages_set)) { ?>
+            <?php $subject = find_subject_by_id($page['subject_id']) ?? array('menu_name'=>'no subject') ?>
                 <tr>
                     <td>
                         <?php echo h($page['id']); ?>
                     </td>
                     <td>
-                        <?php echo h($page['subject_id']); ?>
+                        <?php echo h($subject['menu_name']); ?>
                     </td>
                     <td>
                         <?php echo h($page['position']); ?>
