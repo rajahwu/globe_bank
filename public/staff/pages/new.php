@@ -20,14 +20,7 @@ if (is_post_request()) {
 
   $result = insert_page($page);
   $new_id = mysqli_insert_id($db);
-  if($result) {
-    redirect_to(url_for('/staff/pages/show.php?id=' . u($new_id) ."'"));
-  
-  } else {
-    redirect_to(url_for('/staff/pages/new.php'));
-
-  }
-
+  redirect_to(url_for('/staff/pages/show.php?id=' . $new_id));
  
 }
 

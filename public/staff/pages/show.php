@@ -2,9 +2,6 @@
 
 
 <?php
-if(!$GET['id']) {
-    redirect_to(url_for('/staff/pages/index.php'));
-}
 
 $id = $_GET['id'] ?? 1;
 
