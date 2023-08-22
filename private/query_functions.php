@@ -66,6 +66,7 @@ function delete_subject($id)
     exit;
   }
 }
+
 function update_subject($subject)
 {
   global $db;
@@ -139,6 +140,27 @@ function insert_page($page)
   }
 
   
+}
+
+function delete_page($id)
+{
+  
+  global $db;
+
+  $sql = "DELETE FROM pages ";
+  $sql .= "WHERE id='" . $id . "' ";
+  $sql .= "LIMIT 1";
+
+  echo $sql;
+  $result = mysqli_query($db, $sql);
+  
+  if ($result) {
+    return true;
+  } else {
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+  }
 }
 
 ?>
