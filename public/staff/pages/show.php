@@ -2,9 +2,19 @@
 
 
 <?php
+if(!$GET['id']) {
+    redirect_to(url_for('/staff/pages/index.php'));
+}
+
 $id = $_GET['id'] ?? 1;
 
 $page = find_page_by_id($id);
+
+if(!$page) {
+    echo "no page";
+}
+
+
 ?>
 
 
